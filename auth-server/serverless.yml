@@ -83,7 +83,7 @@ functions:
     handler: handler.getCalendarEvents
     events:
       - http:
-          path: api/getEvents/{access_token}
+          path: api/get-events/{access_token}
           method: get
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
