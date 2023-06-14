@@ -5,7 +5,7 @@ import React, { Component } from "react";
 
 class Event extends Component {
     state = { collapsed: true };
-    toggleDetails = () => {
+    handleClick = () => {
         this.setState((prevState) => ({
             collapsed: !prevState.collapsed,
         }));
@@ -41,7 +41,7 @@ class Event extends Component {
             <button
             type="button"
             className="expand"
-            onClick={this.toggleDetails()}
+            onClick={() => this.handleClick()}
             >{collapsed ? "show" : "hide"} Details: </button>
         </div>
     );

@@ -26,18 +26,18 @@ describe('<Event /> component', () => {
         EventWrapper.setState({ collapsed: true });
         const button = EventWrapper.find('.expand');
         button.simulate('click');
-        expect(EventWrapper.find('.link')).toHaveLength(0);
-        expect(EventWrapper.find('.description')).toHaveLength(0);
-        expect(EventWrapper.state('collapsed')).toBe(true);
-    });
-    test('selecting button should hide event details', () => {
-        expect(EventWrapper.find('.details')).toHaveLength(0);
-        EventWrapper.setState({ collapsed: false });
-        const button = EventWrapper.find('.expand');
-        button.simulate('click');
         expect(EventWrapper.find('.link')).toHaveLength(1);
         expect(EventWrapper.find('.description')).toHaveLength(1);
         expect(EventWrapper.state('collapsed')).toBe(false);
+    });
+    test('selecting button should hide event details', () => {
+        expect(EventWrapper.find('.details')).toHaveLength(1);
+        EventWrapper.setState({ collapsed: false });
+        const button = EventWrapper.find('.expand');
+        button.simulate('click');
+        expect(EventWrapper.find('.link')).toHaveLength(0);
+        expect(EventWrapper.find('.description')).toHaveLength(0);
+        expect(EventWrapper.state('collapsed')).toBe(true);
     });
   });
 

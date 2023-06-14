@@ -18,7 +18,7 @@ describe('<NumberOfEvents />', () => {
     });
     test('input is changed, state and value are reflected correctly', () => {
         NumberOfEventsWrapper.find('.numberOfEvents').simulate('change', {
-            target: { value: 15 }
+            target: { value: 15 },
         });
         expect(NumberOfEventsWrapper.state('query')).toBe(32);
     });
