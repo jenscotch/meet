@@ -1,4 +1,3 @@
-
 import puppeteer from 'puppeteer'; 
 
 describe('show/hide an event details', () => {
@@ -6,14 +5,18 @@ describe('show/hide an event details', () => {
     let page;
     jest.setTimeout(50000);
     beforeAll(async () => {
+      try {
         browser = await puppeteer.launch({
             headless: false,
             slowMo: 250,
             ignoreDefaultArgs: ['--disable-extensions'] //ignores default setting that causes timeout errors
         });
         page = await browser.newPage();
-        await page.goto('http://localhost:3000/');
+        await page.goto('https://jenscotch.github.io/meet/');
         await page.waitForSelector('.event');
+    }   catch (err) {
+        console.error(err);
+    }
     });
     afterAll(() => {
         browser.close();
