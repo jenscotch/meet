@@ -34,7 +34,7 @@ class Event extends Component {
                     <a
                         className="link"
                         href={event.htmlLink}
-                    >See details on Google Calendar</a>
+                    >Add to Google Calendar</a>
                     <p className="description">{event.description}</p>
                 </div>
             )}
@@ -42,7 +42,7 @@ class Event extends Component {
             type="button"
             className="expand"
             onClick={() => this.handleClick()}
-            >{collapsed ? "show" : "hide"} Details: </button>
+            >{collapsed ? "Show" : "Hide"} Details </button>
         </div>
     );
   }
