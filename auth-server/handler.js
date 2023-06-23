@@ -1,4 +1,4 @@
-const { google } = require("googleapis");
+import { google } from "googleapis";
 const OAuth2 = google.auth.OAuth2;
 const calendar = google.calendar("v3");
 /**
@@ -36,7 +36,7 @@ const oAuth2Client = new google.auth.OAuth2(
  * as a URL parameter.
  *
  */
-module.exports.getAuthURL = async () => {
+export async function getAuthURL() {
   /**
    *
    * Scopes array passed to the `scope` option. Any scopes passed must be enabled in the
@@ -59,9 +59,9 @@ module.exports.getAuthURL = async () => {
       authUrl: authUrl,
     }),
   };
-};
+}
 
-module.exports.getAccessToken = async (event) => {
+export async function getAccessToken(event) {
 
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -96,9 +96,9 @@ module.exports.getAccessToken = async (event) => {
         body: JSON.stringify(err),
       };
     });
-  };
+  }
 
-  module.exports.getCalendarEvents = async (event) => {
+  export async function   getCalendarEvents(event) {
 
     const oAuth2Client = new google.auth.OAuth2(
       client_id,
@@ -145,4 +145,4 @@ module.exports.getAccessToken = async (event) => {
           body: JSON.stringify(err),
         };
       });
-  };
+  }
