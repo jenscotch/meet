@@ -52,8 +52,7 @@ const getToken = async (code) => {
   try {
   const encodeCode = encodeURIComponent(code);
   const response = await fetch(
-    mockData
-    //'https://1ba8ix9k81.execute-api.us-west-2.amazonaws.com/dev/api/token' 
+    'https://1ba8ix9k81.execute-api.us-west-2.amazonaws.com/dev/api/token' 
     + '/' + encodeCode
   );
   if (!response.ok) {
