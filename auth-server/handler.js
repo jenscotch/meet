@@ -36,7 +36,7 @@ const oAuth2Client = new google.auth.OAuth2(
  * as a URL parameter.
  *
  */
-export async function getAuthURL() {
+module.exports.getAuthURL = async () => {
   /**
    *
    * Scopes array passed to the `scope` option. Any scopes passed must be enabled in the
@@ -61,7 +61,7 @@ export async function getAuthURL() {
   };
 }
 
-export async function getAccessToken(event) {
+module.exports.getAccessToken = async (event) => {
 
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -98,7 +98,7 @@ export async function getAccessToken(event) {
     });
   }
 
-  export async function   getCalendarEvents(event) {
+  module.exports.getCalendarEvents = async (event) => {
 
     const oAuth2Client = new google.auth.OAuth2(
       client_id,

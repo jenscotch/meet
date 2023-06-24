@@ -3,10 +3,21 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+import EventGenre from './EventGenre';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
 import { WarningAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
+import { ErrorAlert } from './Alert';
+import { 
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 class App extends Component {
   state = {
@@ -15,7 +26,8 @@ class App extends Component {
     eventCount: 32,
     selectedCity: null,
     warningText: '',
-    showWelcomeScreen: undefined
+    showWelcomeScreen: undefined,
+    isOffline: !navigator.onLine
   };
 
   updateEvents = (location, eventCount) => {
@@ -79,9 +91,11 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events: events, locations: extractLocations(events) });
+        this.setState({ events: events, locations: extractLocations(events), isOffline: !navigator.onLine });
   }
   });
+  window.addEventListener('offline', this.handleOfflineStatus);
+  window.addEventListener('online', this.handleOnlineStatus);
   }
   }; catch(err) {
     alert(err);
@@ -90,12 +104,12 @@ class App extends Component {
     this.mounted = false;
   };
 
-  promptOfflineWarning = () => {
-    if (!navigator.onLine) {
-      this.setState({
-        warningText: "You are offline. Reconnect to see updated events.",
-      });
-    }
+  handleOfflineStatus = () => {
+    this.setState({ isOffline: true });
+  };
+
+  handleOnlineStatus = () => {
+    this.setState({ isOffline: false });
   };
 
     render() {
@@ -103,10 +117,32 @@ class App extends Component {
     return (
       <div className="App">
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
+        <h1>Meet: A React App</h1>
+        <h4>Choose your nearest city</h4>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={this.state.numberOfEvents} query={this.state.eventCount} updateEvents={this.updateEvents} />
+        <ErrorAlert text={this.state.errorText} />
+      <div className="data-vis-wrapper">
+        <EventGenre events={this.state.events} /> 
+        <ResponsiveContainer height={400} >
+        <ScatterChart
+          margin={{
+          top: 20,
+          right: 20,
+          bottom: 10,
+          left: 10,
+          }}
+        >
+          <CartesianGrid />
+          <XAxis dataKey="city" type="category" name="city" />
+          <YAxis dataKey="number" type="number" name="number of events" />
+          <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+          <Scatter data={this.getData()} fill="#8884d8" />
+        </ScatterChart>
+        </ResponsiveContainer>
+        </div>
         <EventList events={this.state.events} />
-        <WarningAlert text={this.state.offlineText} />
+        {this.state.isOffline && <WarningAlert text={this.state.warningText} />}
       </div>
     );
   }

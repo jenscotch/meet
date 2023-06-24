@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -8,11 +8,11 @@ import * as atatus from 'atatus-spa';
 
 atatus.config('26ccac606c254beca7513cd85f1567d8').install();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const root = document.getElementById('root');
+render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>, root
 );
 
 // If you want your app to work offline and load faster, you can change

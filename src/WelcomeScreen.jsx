@@ -6,11 +6,11 @@ function WelcomeScreen(props) {
     return props.showWelcomeScreen ?
         (
             <div className="WelcomeScreen">
-                <h1>Welcome to the Meet app</h1>
+                <h1>Welcome to Meet: A React App</h1>
                     <h4>
-                        Log in to see upcoming events around the world for full-stack developers
+                        Sign in to see upcoming events around the world for full-stack developers.
                     </h4>
-                <div className="button_cont" align="center">
+                <div class="login-button" align="center">
                     <div class="google-btn">
                         <div class="google-icon-wrapper">
                             <img class="google-icon"
@@ -22,12 +22,14 @@ function WelcomeScreen(props) {
                             rel="nofollow noopener"
                             class="btn-text"
                         >
-                        <b>Sign in with google</b>
+                        <b>Sign in with Google</b>
                         </button>
                     </div>
                 </div>
-                <a href="https://jenscotch.github.io/meet/privacy.html"
+                <br />
+                <a href="https://glenzy.github.io/meet/privacy.html"
                     rel="nofollow noopener"
+                    align="center"
                 > Privacy policy
                 </a>
             </div>
