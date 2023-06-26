@@ -108,6 +108,12 @@ class App extends Component {
   });
   }
 
+  if (!navigator.onLine) {
+    this.setState({
+      warningText: "You are currently offline. Connect to the internet to see new events"
+    });
+  }
+
   } catch(err) {
     alert(err);
   };
