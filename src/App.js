@@ -108,11 +108,6 @@ class App extends Component {
   });
   }
 
-  if (!navigator.onLine) {
-    this.setState({
-      warningText: "You are currently offline. Connect to the internet to see new events"
-    });
-  }
 
   } catch(err) {
     alert(err);
@@ -121,19 +116,21 @@ class App extends Component {
     this.mounted = false;
   };
 
-  /*promptOfflineAlert = () => {
+  promptOfflineAlert = () => {
     if (!navigator.onLine) {
       this.setState({
         offlineText: "You are currently offline. Connect to the internet to see new events.",
       });
     }
-  };*/
+  };
 
     render() {
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
+        {!navigator.onLine ? (
         <OfflineAlert text={this.state.offlineText} />
+        ) : null}
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>

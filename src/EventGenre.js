@@ -21,7 +21,7 @@ const EventGenre = ({ events }) => {
 
 	return (
 		<ResponsiveContainer height={400}>
-			<PieChart width={400} height={400}>
+			<PieChart height={400}>
 				<Pie
 					data={data}
 					cx={200}
@@ -31,7 +31,7 @@ const EventGenre = ({ events }) => {
 					fill="#8884d8"
 					dataKey="value"
 					label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-					{data.map((index) => (
+					{data.map((entry, index) => (
 						<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
 					))}
 				</Pie>
