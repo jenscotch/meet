@@ -34,14 +34,16 @@ describe('<App /> component', () => {
 describe('App /> integration', () => {
     let AppWrapper;
     beforeAll(() => {
-        AppWrapper = mount(<App />);
+        AppWrapper = shallow(<App />);
+        AppWrapper.setState({showWelcomeScreen: false})
     });
     afterAll(() => {
         AppWrapper.unmount();
     });
 
     test('App passes "events" state as a prop to EventList', () => {
-        const AppWrapper = mount(<App />);
+        const AppWrapper = shallow(<App />);
+        AppWrapper.setState({showWelcomeScreen: false})
         const AppEventsState = AppWrapper.state('events');
         expect(AppEventsState).not.toEqual(undefined);
         expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
