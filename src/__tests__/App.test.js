@@ -14,6 +14,7 @@ describe('<App /> component', () => {
     let AppWrapper;
     beforeAll(() => {
         AppWrapper = shallow(<App />);
+        AppWrapper.setState({showWelcomeScreen: false})
     });
 
     test('render list of events', () => {
@@ -87,7 +88,6 @@ describe('App /> integration', () => {
         //const AppWrapper = mount(<App />);
         const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
         const numberOfEvents = NumberOfEventsWrapper.state("query");
-       
         const event = { target: { value: numberOfEvents } };
         await NumberOfEventsWrapper.instance().handleInputChanged(event);
         expect(AppWrapper.state("eventCount")).toEqual(numberOfEvents);

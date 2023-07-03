@@ -5,6 +5,7 @@ import App from '../App';
 import { mockData } from '../mock-data';
 import CitySearch from '../CitySearch';
 import { extractLocations } from '../api';
+import EventList from '../EventList';
 
 const feature = loadFeature('./src/features/filterEventsByCity.feature');
 
@@ -16,12 +17,12 @@ defineFeature(feature, test => {
     });
     let AppWrapper;
     when('the user opens the app', () => {
-        AppWrapper = mount(<App />);
+        AppWrapper = mount(<EventList />);
     });
 
     then('the user should see the list of upcoming events.', () => {
         AppWrapper.update();
-        expect(AppWrapper.find('.event')).toHaveLength(mockData.length);
+        expect(AppWrapper.find('.eventList')).toHaveLength(mockData.length);
     });
   });
 

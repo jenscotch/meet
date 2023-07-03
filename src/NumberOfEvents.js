@@ -35,6 +35,7 @@ class NumberOfEvents extends Component {
                 <br />
                 <input
                     type='number'
+                    id='eventNumber'
                     min={1}
                     max={32}
                     value={this.state.query}

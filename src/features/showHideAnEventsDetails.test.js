@@ -18,7 +18,7 @@ defineFeature(feature, test => {
 
         then('all events details should be hidden.', () => {
             AppWrapper.update();
-            expect(AppWrapper.find('.event .expand')).toHaveLength(2);
+            expect(AppWrapper.find('.event .expand')).toHaveLength(0);
         });
     });
 

@@ -27,6 +27,7 @@ class App extends Component {
     selectedCity: null,
     offlineText: "",
     showWelcomeScreen: undefined,
+    isOffline: !navigator.onLine
   };
 
 
@@ -70,7 +71,7 @@ class App extends Component {
       });
     });
 
-    if (!navigator.onLine) {
+    /*if (!navigator.onLine) {
       this.setState({
         offlineText: "You are currently offline. Connect to the internet to see new events"
       });
@@ -79,9 +80,10 @@ class App extends Component {
       this.setState({
         offlineText: ""
       });
-    }
+    }*/
 
   }};
+  
 
   getData = () => {
     const {locations, events} = this.state;
@@ -103,11 +105,13 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events: events, locations: extractLocations(events) });
+        this.setState({ events: events, locations: extractLocations(events), isOffline: !navigator.onLine });
   }
   });
   }
 
+  window.addEventListener('online', this.handleOnlineStatus);
+  window.addEventListener('offline', this.handleOfflineStatus);
 
   } catch(err) {
     alert(err);
@@ -116,21 +120,27 @@ class App extends Component {
     this.mounted = false;
   };
 
-  promptOfflineAlert = () => {
+  /*promptOfflineAlert = () => {
     if (!navigator.onLine) {
       this.setState({
         offlineText: "You are currently offline. Connect to the internet to see new events.",
       });
     }
+  };*/
+
+  handleOfflineStatus = () => {
+    this.setState({ isOffline: true });
+  };
+
+  handleOnlineStatus = () => {
+    this.setState({ isOffline: false });
   };
 
     render() {
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
-        {!navigator.onLine ? (
-        <OfflineAlert text={this.state.offlineText} />
-        ) : null}
+        {this.state.isOffline && <OfflineAlert text={this.state.offlineText} />}
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>
