@@ -6,6 +6,22 @@ To build a serverless, progressive web application (PWA) with React using a
 test-driven development (TDD) technique. The application uses the Google
 Calendar API to fetch upcoming events.
 
+# Google Authentication Homepage
+
+<img width="1177" alt="image" src="https://github.com/jenscotch/meet/assets/129793770/14deb1e9-a573-4d39-ad49-e0428067624e">
+
+# Featured Data Charts
+
+<img width="1198" alt="image" src="https://github.com/jenscotch/meet/assets/129793770/dafbdb89-5edc-42da-846b-f6fc022f411d">
+
+# Show/Hide Event Details & Add Event to Google Calendar
+
+<img width="1193" alt="image" src="https://github.com/jenscotch/meet/assets/129793770/cc3de27f-9e77-4600-bbc8-d74a5b360238">
+
+# Filter Events by City
+
+<img width="1138" alt="image" src="https://github.com/jenscotch/meet/assets/129793770/dd09b5c0-15f8-4437-af40-0d2450131074">
+
 # Key Features:
 
 ● Filter events by city.
