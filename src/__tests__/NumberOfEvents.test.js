@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import NumberOfEvents from '../NumberOfEvents';
 
@@ -7,7 +7,7 @@ describe('<NumberOfEvents />', () => {
 
     let NumberOfEventsWrapper;
     beforeAll(() => {
-        NumberOfEventsWrapper = shallow(<NumberOfEvents updateEvents={() => {}} />);
+        NumberOfEventsWrapper = mount(<NumberOfEvents updateEvents={() => {}} />);
     });
 
     test('number of events are rendered', () => {
