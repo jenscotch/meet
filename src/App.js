@@ -8,7 +8,7 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
 //import { OfflineAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
-import { ErrorAlert } from './Alert';
+import { ErrorAlert, OfflineAlert } from './Alert';
 import { 
   ScatterChart,
   Scatter,
@@ -98,17 +98,25 @@ class App extends Component {
   });
   }
 
-    const target = document.getElementById("offlineMessage");
+    /*const target = document.getElementById("offlineMessage");
 
     function handleStateChange() {
         const newState = target;
         const state = navigator.onLine ? "online" : "offline";
         newState.innerHTML = "You are currently " + state + ".";
         target.innerHTML = state;
-    }
+    }*/
+  function promptOfflineAlert()  {
+      if (!navigator.onLine) {
+        this.setState({
+          offlineText: "You are currently offline. Connect to the internet to see new events.",
+        });
+      }
+    };
 
-  window.addEventListener('online', handleStateChange);
-  window.addEventListener('offline', handleStateChange);
+
+  window.addEventListener('online', promptOfflineAlert);
+  window.addEventListener('offline', promptOfflineAlert);
 
   } catch(err) {
     alert(err);
@@ -117,13 +125,7 @@ class App extends Component {
     this.mounted = false;
   };
 
-  /*promptOfflineAlert = () => {
-    if (!navigator.onLine) {
-      this.setState({
-        offlineText: "You are currently offline. Connect to the internet to see new events.",
-      });
-    }
-  };*/
+  
 
   
 
@@ -131,7 +133,7 @@ class App extends Component {
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
-        <div id="offlineMessage"></div>
+        <OfflineAlert />
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>
