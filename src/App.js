@@ -6,7 +6,6 @@ import NumberOfEvents from './NumberOfEvents';
 import EventGenre from './EventGenre';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
-//import { OfflineAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
 import { ErrorAlert, OfflineAlert } from './Alert';
 import { 
@@ -133,7 +132,7 @@ class App extends Component {
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
-        <OfflineAlert />
+        <OfflineAlert offlineText={this.state.offlineText}/>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>
