@@ -26,7 +26,6 @@ class App extends Component {
     selectedCity: null,
     offlineText: "",
     showWelcomeScreen: undefined,
-    isOffline: !navigator.onLine
   };
 
 
@@ -92,7 +91,7 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events: events, locations: extractLocations(events), isOffline: !navigator.onLine });
+        this.setState({ events: events, locations: extractLocations(events) });
   }
   });
   }
