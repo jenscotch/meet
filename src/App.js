@@ -6,7 +6,7 @@ import NumberOfEvents from './NumberOfEvents';
 import EventGenre from './EventGenre';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
-import { OfflineAlert } from './Alert';
+//import { OfflineAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
 import { ErrorAlert } from './Alert';
 import { 
@@ -70,18 +70,6 @@ class App extends Component {
         eventCount: eventCount
       });
     });
-
-    /*if (!navigator.onLine) {
-      this.setState({
-        offlineText: "You are currently offline. Connect to the internet to see new events"
-      });
-    }
-    else {
-      this.setState({
-        offlineText: ""
-      });
-    }*/
-
   }};
   
 
@@ -110,8 +98,17 @@ class App extends Component {
   });
   }
 
-  window.addEventListener('online', this.handleOnlineStatus);
-  window.addEventListener('offline', this.handleOfflineStatus);
+    const target = document.getElementById("offlineMessage");
+
+    function handleStateChange() {
+        const newState = target;
+        const state = navigator.onLine ? "online" : "offline";
+        newState.innerHTML = "You are currently " + state + ".";
+        target.innerHTML = state;
+    }
+
+  window.addEventListener('online', handleStateChange);
+  window.addEventListener('offline', handleStateChange);
 
   } catch(err) {
     alert(err);
@@ -128,19 +125,13 @@ class App extends Component {
     }
   };*/
 
-  handleOfflineStatus = () => {
-    this.setState({ isOffline: true });
-  };
-
-  handleOnlineStatus = () => {
-    this.setState({ isOffline: false });
-  };
+  
 
     render() {
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
-        {this.state.isOffline && <OfflineAlert text={this.state.offlineText} />}
+        <div id="offlineMessage"></div>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>
