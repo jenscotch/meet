@@ -107,16 +107,16 @@ class App extends Component {
         target.innerHTML = state;
     }*/
   function promptOfflineAlert()  {
-      if (!navigator.onLine) {
+      const state = navigator.onLine ? "online" : "offline";
+      if (!state) {
         this.setState({
           offlineText: "You are currently offline. Connect to the internet to see new events.",
         });
       }
     };
 
-
-  window.addEventListener('online', promptOfflineAlert);
-  window.addEventListener('offline', promptOfflineAlert);
+  window.addEventListener("online", promptOfflineAlert);
+  window.addEventListener("offline", promptOfflineAlert);
 
   } catch(err) {
     alert(err);
