@@ -105,8 +105,8 @@ class App extends Component {
         target.innerHTML = state;
     }*/
   function promptOfflineAlert()  {
-      const state = navigator.onLine ? "online" : "offline";
-      if (state === "offline") {
+      const alert = navigator.onLine ? "online" : "offline";
+      if (alert === "offline") {
         this.setState({
           offlineText: "You are currently offline. Connect to the internet to see new events.",
         });
