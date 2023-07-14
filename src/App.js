@@ -24,7 +24,7 @@ class App extends Component {
     locations: [],
     eventCount: 32,
     selectedCity: null,
-    offlineText: "",
+    isOnline: true,
     showWelcomeScreen: undefined,
   };
 
@@ -82,7 +82,12 @@ class App extends Component {
   }
 
   async componentDidMount() {
+
+     window.addEventListener('online', this.handleOnline);
+     window.addEventListener('offline', this.handleOffline);
+
     this.mounted = true;
+    
     const accessToken = localStorage.getItem('access_token');
     const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     const searchParams = new URLSearchParams(window.location.search);
@@ -95,27 +100,6 @@ class App extends Component {
   }
   });
   }
-
-    /*const target = document.getElementById("offlineMessage");
-
-    function handleStateChange() {
-        const newState = target;
-        const state = navigator.onLine ? "online" : "offline";
-        newState.innerHTML = "You are currently " + state + ".";
-        target.innerHTML = state;
-    }*/
-  function promptOfflineAlert()  {
-      const alert = navigator.onLine ? "online" : "offline";
-      if (alert === "offline") {
-        this.setState({
-          offlineText: "You are currently offline. Connect to the internet to see new events.",
-        });
-      }
-    };
-
-  window.addEventListener("online", promptOfflineAlert);
-  window.addEventListener("offline", promptOfflineAlert);
-
   } catch(err) {
     alert(err);
   };
@@ -123,15 +107,28 @@ class App extends Component {
     this.mounted = false;
   };
 
-  
+  handleOnline = () => {
+    this.setState({ isOnline: true });
+  };
 
-  
+  handleOffline = () => {
+    this.setState({ isOnline: false });
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.state.isOnline && !prevState.isOnline) {
+      alert("Back online");
+    } else if(!this.state.isOnline && prevState.isOnline) {
+      alert('You are offline');
+    }
+  };
 
     render() {
+      console.log(this.state.isOnline)
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
-        <OfflineAlert offlineText={this.state.offlineText}/>
+        <OfflineAlert offline={this.state.isOnline}/>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>
