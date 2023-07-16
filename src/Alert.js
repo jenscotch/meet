@@ -40,9 +40,6 @@ class OfflineAlert extends Alert {
         super(props);
         this.color = 'red';
         this.fontSize = '12px';
-        this.state = {
-            isOnline: true
-        };
     }
 }
 

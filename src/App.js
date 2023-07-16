@@ -7,7 +7,7 @@ import EventGenre from './EventGenre';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import './nprogress.css';
 import WelcomeScreen from './WelcomeScreen';
-import { ErrorAlert, OfflineAlert } from './Alert';
+import { ErrorAlert } from './Alert';
 import { 
   ScatterChart,
   Scatter,
@@ -82,12 +82,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
-
-     window.addEventListener('online', this.handleOnline);
-     window.addEventListener('offline', this.handleOffline);
-
     this.mounted = true;
-    
+
     const accessToken = localStorage.getItem('access_token');
     const isTokenValid = (await checkToken(accessToken)).error ? false : true;
     const searchParams = new URLSearchParams(window.location.search);
@@ -103,32 +99,35 @@ class App extends Component {
   } catch(err) {
     alert(err);
   };
-  componentWillUnmount = () => {
-    this.mounted = false;
-  };
-
   handleOnline = () => {
     this.setState({ isOnline: true });
   };
 
-  handleOffline = () => {
-    this.setState({ isOnline: false });
+ handleOffline = () => {
+   this.setState({ isOnline: false });
+ };
+
+ componentDidUpdate(prevState) {
+   if(this.state.isOnline && !prevState.isOnline) {
+     alert("Back online");
+   } else if(!this.state.isOnline && !prevState.isOnline) {
+     alert('You are offline');
+   }
+   window.addEventListener('online', this.handleOnline);
+   window.addEventListener('offline', this.handleOffline);
+ };
+
+  componentWillUnmount = () => {
+    this.mounted = false;
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.isOnline && !prevState.isOnline) {
-      alert("Back online");
-    } else if(!this.state.isOnline && prevState.isOnline) {
-      alert('You are offline');
-    }
-  };
+  
 
     render() {
       console.log(this.state.isOnline)
       if (this.state.showWelcomeScreen === undefined) return <div className='App' />
     return (
       <div className="App">
-        <OfflineAlert offline={this.state.isOnline}/>
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
         <h1>Meet: A React App</h1>
         <h4>Choose your nearest city</h4>
