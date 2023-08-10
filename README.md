@@ -1,5 +1,7 @@
 # Meet: A React App
 
+jenscotch.github.io/meet/
+
 # Objective:
 
 To build a serverless, progressive web application (PWA) with React using a
